@@ -16,12 +16,12 @@ options.add_extension(
 options.add_argument("--window-size=100,300")
 d = {}
 for x in range(2):
-    if os.path.isdir(f'/home/developer/.config/google-chrome/Profile 19/Profile {x}') == False:
+    if os.path.isdir(f'/home/developer/.config/google-chrome/Profile {x}') == False:
         from_directory = './profile'
-        to_directory = f'/home/developer/.config/google-chrome/Profile 20/Profile {x}'
+        to_directory = f'/home/developer/.config/google-chrome/Profile {x}'
         copy_tree(from_directory, to_directory)
     options.add_argument(
-        f"--user-data-dir=/home/developer/.config/google-chrome/Profile 20/Profile {x}")
+        f"--user-data-dir=/home/developer/.config/google-chrome/Profile {x}")
     d["group" + str(x)] = webdriver.Chrome(
         executable_path=r'./chromedriver', options=options)
     d["group" +
