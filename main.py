@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from distutils.dir_util import copy_tree
 import time
+import os
 
-# options.add_argument(
-#     "--user-data-dir=/home/developer/.config/google-chrome/Profile 19/Profile 01")
 options = Options()
 options.add_extension(
     './extension/01.crx')
@@ -12,9 +12,16 @@ options.add_extension(
 options.add_extension(
     './extension/03.crx')
 
+
 options.add_argument("--window-size=100,300")
 d = {}
-for x in range(30):
+for x in range(2):
+    if os.path.isdir(f'/home/developer/.config/google-chrome/Profile 19/Profile {x}') == False:
+        from_directory = './profile'
+        to_directory = f'/home/developer/.config/google-chrome/Profile 20/Profile {x}'
+        copy_tree(from_directory, to_directory)
+    options.add_argument(
+        f"--user-data-dir=/home/developer/.config/google-chrome/Profile 20/Profile {x}")
     d["group" + str(x)] = webdriver.Chrome(
         executable_path=r'./chromedriver', options=options)
     d["group" +
