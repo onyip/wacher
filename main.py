@@ -34,5 +34,11 @@ for x in range(30):
     find = d["group" + str(x)].find_element(
         "xpath", f"(//a[@id='video-title'])[1]").click()
     time.sleep(5)
+    path = "//*[@id='movie_player']/div[1]/video"
+    p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
+    fun = f'function getElementByXpath(path) {p} let y = getElementByXpath("{path}"); y.loop=true;'
+    d["group" +
+        str(x)].execute_script(fun)
+    time.sleep(2)
 
 print('y')
