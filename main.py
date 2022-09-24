@@ -1,9 +1,10 @@
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from distutils.dir_util import copy_tree
-import time
-import os
 from pyvirtualdisplay import Display
+from selenium import webdriver
+import time
+import sys
+import os
 
 display = Display(visible=0, size=[800, 600])
 display.start()
@@ -19,7 +20,7 @@ options.add_extension(
 
 options.add_argument("--window-size=100,300")
 d = {}
-for x in range(30):
+for x in range(int(sys.argv[1])):
     if os.path.isdir(f'./Profile {x}') == False:
         from_directory = './profile'
         to_directory = f'./Profile {x}'
