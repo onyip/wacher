@@ -19,7 +19,7 @@ options.add_extension(
 
 options.add_argument("--window-size=100,300")
 d = {}
-for x in range(2):
+for x in range(30):
     if os.path.isdir(f'./Profile {x}') == False:
         from_directory = './profile'
         to_directory = f'./Profile {x}'
