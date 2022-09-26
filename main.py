@@ -2,6 +2,7 @@ from selenium.webdriver.chrome.options import Options
 from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
 from selenium import webdriver
+import random
 import time
 import sys
 import os
@@ -16,10 +17,18 @@ options.add_extension(
     './extension/02.crx')
 options.add_extension(
     './extension/03.crx')
-
-
 options.add_argument("--window-size=100,300")
 d = {}
+foo = [
+    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=1&autoplay=1',
+    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=0&autoplay=1',
+    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=1&autoplay=1'
+]
 for x in range(int(sys.argv[1])):
     if os.path.isdir(f'./Profile {x}') == False:
         from_directory = './profile'
@@ -29,17 +38,10 @@ for x in range(int(sys.argv[1])):
         f"--user-data-dir=./Profile {x}")
     d["group" + str(x)] = webdriver.Chrome(
         executable_path=r'./chromedriver', options=options)
-    d["group" +
-        str(x)].get("https://www.youtube.com/results?search_query=OGdangID pubg lite")
-    time.sleep(5)
-    find = d["group" + str(x)].find_element(
-        "xpath", f"(//a[@id='video-title'])[1]").click()
+    d["group" + str(x)].get(f'{random.choice(foo)}')
     time.sleep(10)
-    path = "//*[@id='movie_player']/div[1]/video"
-    p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
-    fun = f'function getElementByXpath(path) {p} let y = getElementByXpath("{path}"); y.loop=true;'
-    d["group" +
-        str(x)].execute_script(fun)
+    find = d["group" + str(x)].find_element(
+        "xpath", f'//*[@id="movie_player"]/div[4]/button').click()
     time.sleep(2)
 
 print('y')
