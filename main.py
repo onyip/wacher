@@ -1,4 +1,7 @@
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
 from selenium import webdriver
@@ -20,14 +23,14 @@ options.add_extension(
 options.add_argument("--window-size=100,300")
 d = {}
 foo = [
-    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=1&autoplay=1',
-    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=0&autoplay=1',
-    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=1&autoplay=1'
+    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=1?autoplay=1',
+    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=1?autoplay=1'
 ]
 for x in range(int(sys.argv[1])):
     if os.path.isdir(f'./Profile {x}') == False:
@@ -40,8 +43,11 @@ for x in range(int(sys.argv[1])):
         executable_path=r'./chromedriver', options=options)
     d["group" + str(x)].get(f'{random.choice(foo)}')
     # time.sleep(10)
-    find = d["group" + str(x)].find_element(
-        "xpath", f'//*[@id="movie_player"]/div[4]/button').click()
+    # find = d["group" + str(x)].find_element(
+    #     "xpath", f'//*[@id="movie_player"]/div[4]/button').click()
+    element = WebDriverWait(d["group" + str(x)], 30).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="movie_player"]/div[4]/button')))
+    element.click()
     time.sleep(2)
 
 print('y')
