@@ -23,14 +23,14 @@ options.add_extension(
 options.add_argument("--window-size=100,300")
 d = {}
 foo = [
-    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=1?autoplay=1',
-    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=1?autoplay=1'
+    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=10',
+    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=10',
+    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=10',
+    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=10',
+    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=10',
+    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=10',
+    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=10',
+    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=10'
 ]
 for x in range(int(sys.argv[1])):
     if os.path.isdir(f'./Profile {x}') == False:
@@ -45,9 +45,7 @@ for x in range(int(sys.argv[1])):
     # time.sleep(10)
     # find = d["group" + str(x)].find_element(
     #     "xpath", f'//*[@id="movie_player"]/div[4]/button').click()
-    element = WebDriverWait(d["group" + str(x)], 30).until(
+    element = WebDriverWait(d["group" + str(x)], 60).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="movie_player"]/div[4]/button')))
     element.click()
-    time.sleep(2)
-
 print('y')
