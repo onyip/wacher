@@ -39,7 +39,7 @@ for x in range(int(sys.argv[1])):
     d["group" + str(x)] = webdriver.Chrome(
         executable_path=r'./chromedriver', options=options)
     d["group" + str(x)].get(f'{random.choice(foo)}')
-    time.sleep(15)
+    # time.sleep(10)
     find = d["group" + str(x)].find_element(
         "xpath", f'//*[@id="movie_player"]/div[4]/button').click()
     time.sleep(2)
