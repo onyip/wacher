@@ -23,14 +23,7 @@ options.add_extension(
 options.add_argument("--window-size=100,300")
 d = {}
 foo = [
-    'https://www.youtube.com/watch?v=ksVJ_YF39x8&loop=10',
-    'https://www.youtube.com/watch?v=-3xexHgQGmY&loop=10',
-    'https://www.youtube.com/watch?v=R4WKeYVmzxI&loop=10',
-    'https://www.youtube.com/watch?v=DA1STZKRtzU&loop=10',
-    'https://www.youtube.com/watch?v=qz1f0cHloEk&loop=10',
-    'https://www.youtube.com/watch?v=iU4KXX4ZQLc&loop=10',
-    'https://www.youtube.com/watch?v=SXfmCyMaVH4&loop=10',
-    'https://www.youtube.com/watch?v=KZ3kbvM6ooM&loop=10'
+    'https://www.youtube.com/watch?v=zUu64aJuOvg&loop=50',
 ]
 for x in range(int(sys.argv[1])):
     if os.path.isdir(f'./Profile {x}') == False:
