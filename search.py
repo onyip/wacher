@@ -10,8 +10,8 @@ import time
 import sys
 import os
 
-# display = Display(visible=0, size=[800, 600])
-# display.start()
+display = Display(visible=0, size=[800, 600])
+display.start()
 
 options = Options()
 options.add_extension(
