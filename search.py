@@ -10,8 +10,8 @@ import time
 import sys
 import os
 
-display = Display(visible=0, size=[800, 600])
-display.start()
+# display = Display(visible=0, size=[800, 600])
+# display.start()
 
 options = Options()
 options.add_extension(
@@ -39,8 +39,9 @@ for x in range(int(sys.argv[1])):
         EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "a.yt-simple-endpoint.style-scope.ytd-video-renderer#video-title")))
     for y in links:
         if y.get_attribute("href") == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
+            time.sleep(3)
             y.click()
-            time.sleep(10)
+            time.sleep(7)
             path = '//*[@id="movie_player"]/div[1]/video'
             p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
             fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
