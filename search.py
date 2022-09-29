@@ -41,6 +41,7 @@ for x in range(int(sys.argv[1])):
         if y.get_attribute("href") == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
             time.sleep(3)
             y.click()
+            print('video clicked!')
             time.sleep(7)
             path = '//*[@id="movie_player"]/div[1]/video'
             p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
