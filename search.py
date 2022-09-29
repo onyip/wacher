@@ -1,4 +1,5 @@
 from ast import If
+from itertools import count
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
@@ -6,6 +7,7 @@ from selenium.webdriver.common.by import By
 from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
 from selenium import webdriver
+from colorama import Fore
 import time
 import sys
 import os
@@ -22,8 +24,9 @@ options.add_extension(
     './extension/03.crx')
 options.add_argument("--window-size=100,300")
 d = {}
+cont = 0
 for x in range(int(sys.argv[1])):
-    print(f'Creating on viewer number {x}')
+    print(Fore.BLUE + f'Creating on viewer number {x}')
     if os.path.isdir(f'./Profile {x}') == False:
         from_directory = './profile'
         to_directory = f'./Profile {x}'
@@ -41,7 +44,9 @@ for x in range(int(sys.argv[1])):
         if y.get_attribute("href") == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
             time.sleep(3)
             y.click()
-            print('video clicked!')
+            count = count + 1
+            print(Fore.GREEN +
+                  f'video clicked!, Total video clicked is {count}')
             time.sleep(7)
             path = '//*[@id="movie_player"]/div[1]/video'
             p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
@@ -49,6 +54,6 @@ for x in range(int(sys.argv[1])):
             d["group" +
                 str(x)].execute_script(fun)
     time.sleep(2)
-    print(f'Viewer number {x} successfully created!')
+    print(Fore.RED + f'Viewer number {x} successfully created!')
 
 print('Done, all viewer created successfully!')
