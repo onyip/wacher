@@ -42,7 +42,12 @@ for x in range(int(sys.argv[1])):
     links = WebDriverWait(d["group" + str(x)], 5).until(
         EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "a.yt-simple-endpoint.style-scope.ytd-video-renderer#video-title")))
     for y in links:
-        if y.get_attribute("href") == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
+        try:
+            lix = y.get_attribute("href")
+        except:
+            lix = ''
+            print(Fore.RED + "An exception occurred")
+        if lix == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
             time.sleep(3)
             output.clear()
             y.click()
