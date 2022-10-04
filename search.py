@@ -38,7 +38,7 @@ for x in range(int(sys.argv[1])):
             executable_path=r'./chromedriver', options=options)
     except:
         d["group" + str(x)] = ''
-        print(Fore.RED + "An exception occurred")
+        print(Fore.RED + "Filed Start Vrome Driver Plase Restart Mechine!")
 
     if d["group" + str(x)] != '':
         d["group" +
@@ -51,13 +51,16 @@ for x in range(int(sys.argv[1])):
                 lix = y.get_attribute("href")
             except:
                 lix = ''
-                print(Fore.RED + "An exception occurred")
+                print(Fore.RED + "Filed get link from list!")
             if lix == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
                 time.sleep(3)
-                y.click()
-                cont = cont + 1
-                print(Fore.GREEN +
-                      f'video clicked!, Total video clicked is {cont}')
+                try:
+                    y.click()
+                    cont = cont + 1
+                    print(Fore.GREEN +
+                          f'video clicked!, Total video clicked is {cont}')
+                except:
+                    print(Fore.RED + "Filed to click video!")
                 time.sleep(7)
                 path = '//*[@id="movie_player"]/div[1]/video'
                 p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
@@ -66,7 +69,7 @@ for x in range(int(sys.argv[1])):
                     d["group" +
                         str(x)].execute_script(fun)
                 except:
-                    print(Fore.RED + "An exception occurred")
+                    print(Fore.RED + "Filed Run JS")
         time.sleep(2)
         print(Fore.CYAN + f'Viewer number {x} successfully created!')
 
