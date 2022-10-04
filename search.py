@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
-from google.colab import output
 from selenium import webdriver
 from colorama import Fore
 import time
@@ -34,36 +33,41 @@ for x in range(int(sys.argv[1])):
         copy_tree(from_directory, to_directory)
     options.add_argument(
         f"--user-data-dir=./Profile {x}")
-    d["group" + str(x)] = webdriver.Chrome(
-        executable_path=r'./chromedriver', options=options)
-    d["group" +
-        str(x)].get('https://www.youtube.com/results?search_query=Ubuntu+Screencast+Tutorial+#limitlesstutorial')
-    time.sleep(5)
-    links = WebDriverWait(d["group" + str(x)], 5).until(
-        EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "a.yt-simple-endpoint.style-scope.ytd-video-renderer#video-title")))
-    for y in links:
-        try:
-            lix = y.get_attribute("href")
-        except:
-            lix = ''
-            print(Fore.RED + "An exception occurred")
-        if lix == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
-            time.sleep(3)
-            output.clear()
-            y.click()
-            cont = cont + 1
-            print(Fore.GREEN +
-                  f'video clicked!, Total video clicked is {cont}')
-            time.sleep(7)
-            path = '//*[@id="movie_player"]/div[1]/video'
-            p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
-            fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
+    try:
+        d["group" + str(x)] = webdriver.Chrome(
+            executable_path=r'./chromedriver', options=options)
+    except:
+        d["group" + str(x)] = ''
+        print(Fore.RED + "An exception occurred")
+
+    if d["group" + str(x)] != '':
+        d["group" +
+            str(x)].get('https://www.youtube.com/results?search_query=Ubuntu+Screencast+Tutorial+#limitlesstutorial')
+        time.sleep(5)
+        links = WebDriverWait(d["group" + str(x)], 5).until(
+            EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "a.yt-simple-endpoint.style-scope.ytd-video-renderer#video-title")))
+        for y in links:
             try:
-                d["group" +
-                    str(x)].execute_script(fun)
+                lix = y.get_attribute("href")
             except:
+                lix = ''
                 print(Fore.RED + "An exception occurred")
-    time.sleep(2)
-    print(Fore.CYAN + f'Viewer number {x} successfully created!')
+            if lix == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
+                time.sleep(3)
+                y.click()
+                cont = cont + 1
+                print(Fore.GREEN +
+                      f'video clicked!, Total video clicked is {cont}')
+                time.sleep(7)
+                path = '//*[@id="movie_player"]/div[1]/video'
+                p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
+                fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
+                try:
+                    d["group" +
+                        str(x)].execute_script(fun)
+                except:
+                    print(Fore.RED + "An exception occurred")
+        time.sleep(2)
+        print(Fore.CYAN + f'Viewer number {x} successfully created!')
 
 print('Done, all viewer created successfully!')
