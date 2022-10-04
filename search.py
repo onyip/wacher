@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
+from google.colab import output
 from selenium import webdriver
 from colorama import Fore
 import time
@@ -43,6 +44,7 @@ for x in range(int(sys.argv[1])):
     for y in links:
         if y.get_attribute("href") == 'https://www.youtube.com/watch?v=zUu64aJuOvg':
             time.sleep(3)
+            output.clear()
             y.click()
             cont = cont + 1
             print(Fore.GREEN +
@@ -51,9 +53,12 @@ for x in range(int(sys.argv[1])):
             path = '//*[@id="movie_player"]/div[1]/video'
             p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
             fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
-            d["group" +
-                str(x)].execute_script(fun)
+            try:
+                d["group" +
+                    str(x)].execute_script(fun)
+            except:
+                print(Fore.RED + "An exception occurred")
     time.sleep(2)
-    print(Fore.RED + f'Viewer number {x} successfully created!')
+    print(Fore.CYAN + f'Viewer number {x} successfully created!')
 
 print('Done, all viewer created successfully!')
