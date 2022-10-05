@@ -59,7 +59,7 @@ for x in range(int(sys.argv[1])):
                     cont = cont + 1
                     print(Fore.GREEN +
                           f'video clicked!, Total video clicked is {cont}')
-                    time.sleep(7)
+                    time.sleep(10)
                 except:
                     print(Fore.RED + "Filed to click video!")
                 for t in range(30):
