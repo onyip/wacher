@@ -59,9 +59,16 @@ for x in range(int(sys.argv[1])):
                     cont = cont + 1
                     print(Fore.GREEN +
                           f'video clicked!, Total video clicked is {cont}')
+                    time.sleep(7)
                 except:
                     print(Fore.RED + "Filed to click video!")
-                time.sleep(7)
+                try:
+                    find = d["group" + str(x)].find_element(
+                        "xpath", f"//*[@id='skip-button:6']/span/button").click()
+                    print(Fore.MAGENTA + "Ads skiped!")
+                    time.sleep(3)
+                except:
+                    print(Fore.LIGHTBLACK_EX + "No ads detected!")
                 path = '//*[@id="movie_player"]/div[1]/video'
                 p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
                 fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
