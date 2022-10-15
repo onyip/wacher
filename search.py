@@ -1,6 +1,7 @@
 from ast import If
 from itertools import count
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -8,11 +9,12 @@ from distutils.dir_util import copy_tree
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from colorama import Fore
+import random
 import time
 import sys
 import os
 
-display = Display(visible=0, size=[800, 600])
+display = Display(visible=0, size=[1280, 720])
 display.start()
 
 options = Options()
@@ -23,6 +25,7 @@ options.add_extension(
 options.add_extension(
     './extension/03.crx')
 options.add_argument("--start-maximized")
+options.add_experimental_option("excludeSwitches", ['disable-automation'])
 d = {}
 cont = 0
 for x in range(int(sys.argv[1])):
@@ -36,13 +39,24 @@ for x in range(int(sys.argv[1])):
     try:
         d["group" + str(x)] = webdriver.Chrome(
             executable_path=r'./chromedriver', options=options)
+        action = ActionChains(d["group" + str(x)])
     except:
         d["group" + str(x)] = ''
         print(Fore.RED + "Filed Start Vrome Driver Plase Restart Mechine!")
-
+    keyword = [
+        'limitlesstutorial+Ubuntu+Screencast+Tutorial',
+        'Ubuntu+Screencast+Tutorial+limitlesstutorial',
+        'Ubuntu+Screencast+Tutorial',
+        'limitlesstutorial+Tutorial',
+        'limitlesstutorial+Tutorial',
+        'limitlesstutorial+Ubuntu',
+        'limitlesstutorial+Ubuntu+Screencast',
+        'limitlesstutorial+Screencast',
+        'Ubuntu+Screencast+limitlesstutorial',
+    ]
     if d["group" + str(x)] != '':
         d["group" +
-            str(x)].get('https://www.youtube.com/results?search_query=Ubuntu+Screencast+Tutorial+#limitlesstutorial')
+            str(x)].get(f'https://www.youtube.com/results?search_query={random.choice(keyword)}')
         time.sleep(5)
         links = WebDriverWait(d["group" + str(x)], 5).until(
             EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "a.yt-simple-endpoint.style-scope.ytd-video-renderer#video-title")))
@@ -72,12 +86,20 @@ for x in range(int(sys.argv[1])):
                     except:
                         if t == 29:
                             print(Fore.LIGHTBLACK_EX + "No ads detected!")
-                path = '//*[@id="movie_player"]/div[1]/video'
-                p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
-                fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
+                # path = '//*[@id="movie_player"]/div[1]/video'
+                # p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
+                # fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
                 try:
-                    d["group" +
-                        str(x)].execute_script(fun)
+                    # d["group" +
+                    #     str(x)].execute_script(fun)
+                    
+                    # video = d["group" + str(x)].find_element(
+                    #         "xpath", f'//*[@id="movie_player"]/div[1]/video')
+                    # action.context_click(video).perform()
+                    # time.sleep(1)
+                    find = d["group" + str(x)].find_element(
+                            "xpath", f'//*[@id="yt-looper-video"]').click()
+                    print(Fore.MAGENTA + "Video looped!")
                 except:
                     print(Fore.RED + "Filed Run JS")
         time.sleep(2)
