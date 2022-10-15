@@ -14,7 +14,7 @@ import time
 import sys
 import os
 
-display = Display(visible=0, size=[1280, 720])
+display = Display(visible=0, size=[1366, 768])
 display.start()
 
 options = Options()
@@ -24,7 +24,7 @@ options.add_extension(
     './extension/02.crx')
 options.add_extension(
     './extension/03.crx')
-options.add_argument("--start-maximized")
+# options.add_argument("--start-maximized")
 options.add_experimental_option("excludeSwitches", ['disable-automation'])
 d = {}
 cont = 0
