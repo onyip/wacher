@@ -86,22 +86,20 @@ for x in range(int(sys.argv[1])):
                     except:
                         if t == 29:
                             print(Fore.LIGHTBLACK_EX + "No ads detected!")
-                # path = '//*[@id="movie_player"]/div[1]/video'
-                # p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
-                # fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
+                path = '//*[@id="movie_player"]/div[1]/video'
+                p = '{return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}'
+                fun = f"function getElementByXpath(path) {p} let y = getElementByXpath('{path}'); y.loop=true;"
                 try:
-                    # d["group" +
-                    #     str(x)].execute_script(fun)
-                    
-                    # video = d["group" + str(x)].find_element(
-                    #         "xpath", f'//*[@id="movie_player"]/div[1]/video')
-                    # action.context_click(video).perform()
-                    # time.sleep(1)
                     find = d["group" + str(x)].find_element(
-                            "xpath", f'//*[@id="yt-looper-video"]').click()
-                    print(Fore.MAGENTA + "Video Looped!")
+                         "xpath", f'//*[@id="yt-looper-video"]').click()
+                    print(Fore.MAGENTA + "Video Looped With Ext!")
                 except:
-                    print(Fore.RED + "Filed Loop")
+                    try:
+                        d["group" +
+                        str(x)].execute_script(fun)
+                        print(Fore.MAGENTA + "Video Looped With Js!")
+                    except:
+                        print(Fore.RED + "Filed Loop")
         time.sleep(2)
         print(Fore.CYAN + f'Viewer number {x} successfully created!')
 
