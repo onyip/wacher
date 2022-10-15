@@ -99,9 +99,9 @@ for x in range(int(sys.argv[1])):
                     # time.sleep(1)
                     find = d["group" + str(x)].find_element(
                             "xpath", f'//*[@id="yt-looper-video"]').click()
-                    print(Fore.MAGENTA + "Video looped!")
+                    print(Fore.MAGENTA + "Video Looped!")
                 except:
-                    print(Fore.RED + "Filed Run JS")
+                    print(Fore.RED + "Filed Loop")
         time.sleep(2)
         print(Fore.CYAN + f'Viewer number {x} successfully created!')
 
