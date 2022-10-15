@@ -24,7 +24,7 @@ options.add_extension(
     './extension/02.crx')
 options.add_extension(
     './extension/03.crx')
-# options.add_argument("--start-maximized")
+options.add_argument("--start-maximized")
 options.add_experimental_option("excludeSwitches", ['disable-automation'])
 d = {}
 cont = 0
